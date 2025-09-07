@@ -10,24 +10,41 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayRoutesConfig {
 
+    @Value("${services.auth.uri}")
+    private String authUri;
+
+    @Value("${services.auth.public-paths}")
+    private String[] authPublicPaths;
+
+    @Value("${services.auth.private-paths}")
+    private String[] authPrivatePaths;
+
+    @Value("${services.solicitudes.uri}")
+    private String solicitudesUri;
+
+    @Value("${services.solicitudes.paths}")
+    private String[] solicitudesPaths;
+
     @Value("${jwt.secret}")
     private String jwtSecret;
 
     @Bean
-    public RouteLocator routeLocator(RouteLocatorBuilder builder){
+    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("auth-public-service", r -> r.path("/api/v1/login")
+                .route("auth-public-service", r -> r.path(authPublicPaths)
                         .filters(f -> f.filter(new JwtAuthenticationFilter(false, jwtSecret)))
-                        .uri("http://localhost:8082"))
+                        .uri(authUri))
 
-                .route("auth-private-service", r -> r.path("/api/v1/usuarios", "/api/v1/validar")
+                .route("auth-private-service", r -> r.path(authPrivatePaths)
                         .filters(f -> f.filter(new JwtAuthenticationFilter(true, jwtSecret)))
-                        .uri("http://localhost:8082"))
+                        .uri(authUri))
 
-                .route("solicitudes-service", r -> r.path("/api/v1/solicitud")
+                .route("solicitudes-service", r -> r.path(solicitudesPaths)
                         .filters(f -> f.filter(new JwtAuthenticationFilter(true, jwtSecret)))
-                        .uri("http://localhost:8081"))
+                        .uri(solicitudesUri))
 
                 .build();
     }
 }
+
+
