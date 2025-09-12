@@ -13,7 +13,7 @@ services:
   auth:
     uri: ${SERVICES_AUTH_URI:http://localhost:8082}
     public-paths: ${SERVICES_AUTH_PUBLIC_PATHS:/api/v1/login}
-    private-paths: ${SERVICES_AUTH_PRIVATE_PATHS:/api/v1/usuarios,/api/v1/validar}
+    private-paths: ${SERVICES_AUTH_PRIVATE_PATHS:/api/v1/usuarios,/api/v1/validar, /api/v1/salario}
   solicitudes:
     uri: ${SERVICES_SOLICITUDES_URI:http://localhost:8081}
     paths: ${SERVICES_SOLICITUDES_PATHS:/api/v1/solicitud}
