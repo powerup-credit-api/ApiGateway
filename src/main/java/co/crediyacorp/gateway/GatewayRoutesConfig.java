@@ -19,8 +19,14 @@ public class GatewayRoutesConfig {
     @Value("${services.auth.private-paths}")
     private String[] authPrivatePaths;
 
+    @Value("${services.reportes.private-paths}")
+    private String[] reportesPrivatePaths;
+
     @Value("${services.solicitudes.uri}")
     private String solicitudesUri;
+
+    @Value("${services.reportes.uri}")
+    private String reportesUri;
 
     @Value("${services.solicitudes.paths}")
     private String[] solicitudesPaths;
@@ -42,7 +48,9 @@ public class GatewayRoutesConfig {
                 .route("solicitudes-service", r -> r.path(solicitudesPaths)
                         .filters(f -> f.filter(new JwtAuthenticationFilter(true, jwtSecret)))
                         .uri(solicitudesUri))
-
+                .route("reportes-service", r -> r.path(reportesPrivatePaths)
+                        .filters(f -> f.filter(new JwtAuthenticationFilter(true, jwtSecret)))
+                        .uri(reportesUri))
                 .build();
     }
 }

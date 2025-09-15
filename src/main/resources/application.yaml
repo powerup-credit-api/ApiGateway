@@ -17,6 +17,9 @@ services:
   solicitudes:
     uri: ${SERVICES_SOLICITUDES_URI:http://localhost:8081}
     paths: ${SERVICES_SOLICITUDES_PATHS:/api/v1/solicitud}
+  reportes:
+    uri: ${SERVICES_REPORTES_URI:http://localhost:8083}
+    private-paths: ${SERVICES_REPORTES_PRIVATE_PATHS:/api/v1/reportes/total, /api/v1/reportes/monto}
 
 jwt:
   secret: ${JWT_SECRET:my-super-secret-key-1234567890abcdef}
